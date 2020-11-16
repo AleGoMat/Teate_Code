@@ -1,0 +1,44 @@
+!pip install sqlalchemy
+import pandas as pd
+import numpy as np
+import re
+import io
+from unicodedata import normalize
+from sqlalchemy import create_engine
+host = 'dbteate.cbxkjvwmbqol.us-east-2.rds.amazonaws.com'
+port = 5432
+user = 'postgres'
+password = 'teate1234'
+database = 'postgres'
+connDB = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{database}')
+conn = connDB.raw_connection()
+cur = conn.cursor()
+def formatcolumn(text,flag = True):
+    text = text.lower()
+    text = re.sub('<.*?>', '', text)
+    text = re.sub(':.*?:', '', text)
+    text = re.sub(r"([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+", r"\1", normalize( "NFD", text), 0, re.I)
+    text = normalize( 'NFC', text)
+    if flag:
+        text = re.sub('[^a-z0-9 ]', '', text)
+    else:
+        text = re.sub('[^a-z0-9]', '', text)
+    return text
+data= pd.read_csv('clean_teate_21oct.csv', dtype='str')
+data.columns = [formatcolumn(val,False) for val in data.columns]
+print(data.shape)
+data.head()
+
+# Create table 
+data.head(0).to_sql('teatetotal', con = connDB, if_exists='replace',index=False) 
+
+# Masive load data from python
+output = io.StringIO()
+data.to_csv(output, sep='|', header=False, index=False)
+output.seek(0)
+contents = output.getvalue()
+cur.copy_from(output, 'teatetotal',sep='|') 
+conn.commit()
+conn.close()
+print("Upload Finished")
+
