@@ -413,7 +413,7 @@ merged4['Pob_small'].unique()
 
 result2 = merged4.merge(df_categ, how='left', on='Material')
 
-result2.to_csv('clean_teate_05nov.csv', index=False)
+result2.to_csv('clean_teate_21oct.csv', index=False)
 
 result2.isnull().mean().sort_values(ascending=False)
 
