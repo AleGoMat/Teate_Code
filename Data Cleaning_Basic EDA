@@ -1,0 +1,421 @@
+import pandas as pd
+import numpy as np
+import matplotlib as plt
+import seaborn as sns
+import plotly.express as px
+import os
+os.getcwd()
+import plotly.offline as pyo
+import plotly.graph_objs as go
+# Set notebook mode to work in offline
+pyo.init_notebook_mode()
+
+data_teate1=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Enero 2019.xlsx", dtype={'Pedido': object})
+data_teate1['mes']='Enero'
+data_teate1['year']='2019'
+data_teate2=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Febrero 2019.xlsx",dtype={'Pedido': object})
+data_teate2['mes']='Febrero'
+data_teate2['year']='2019'
+
+
+data_teate3=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Marzo 2019.xlsx",dtype={'Pedido': object})
+data_teate3['mes']='Marzo'
+data_teate3['year']='2019'
+data_teate4=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Abril 2019.xlsx",dtype={'Pedido': object})
+data_teate4['mes']='Abril'
+data_teate4['year']='2019'
+data_teate5=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Mayo 2019.xlsx",dtype={'Pedido': object})
+data_teate5['mes']='Mayo'
+data_teate5['year']='2019'
+
+
+data_teate6=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Junio 2019.xlsx",dtype={'Pedido': object})
+data_teate6['mes']='Junio'
+data_teate6['year']='2019'
+data_teate7=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Julio 2019.xlsx",dtype={'Pedido': object})
+data_teate7['mes']='Julio'
+data_teate7['year']='2019'
+data_teate8=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Agosto 20119.xlsx",dtype={'Pedido': object})
+data_teate8['mes']='Agosto'
+data_teate8['year']='2019'
+
+data_teate9=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Septiembre 2019.xlsx",dtype={'Pedido': object})
+data_teate9['mes']='Septiembre'
+data_teate9['year']='2019'
+data_teate10=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Octubre 2019.xlsx",dtype={'Pedido': object})
+data_teate10['mes']='Octubre'
+data_teate10['year']='2019'
+
+data_teate11=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Noviembre 2019.xlsx",dtype={'Pedido': object})
+data_teate11['mes']='Noviembre'
+data_teate11['year']='2019'
+data_teate12=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2019/Tx 51 Diciembre 2019.xlsx",dtype={'Pedido': object})
+data_teate12['mes']='Diciembre'
+data_teate12['year']='2019'
+
+
+data_teate13=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/Tx 51 Enero 2020.xlsx",dtype={'Pedido': object})
+data_teate13['mes']='Enero'
+data_teate13['year']='2020'
+
+data_teate14=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/Tx 51 Febrero 2020.xlsx",dtype={'Pedido': object})
+data_teate14['mes']='Febrero'
+data_teate14['year']='2020'
+data_teate15=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2020/Tx 51 Marzo 2020.xlsx",dtype={'Pedido': object})
+data_teate15['mes']='Marzo'
+data_teate15['year']='2020'
+
+data_teate16=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2020/Tx 51 Abril 2020.xlsx",dtype={'Pedido': object})
+data_teate16['mes']='Abril'
+data_teate16['year']='2020'
+
+data_teate17=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2020/Tx 51 Mayo 2020.xlsx",dtype={'Pedido': object})
+data_teate17['mes']='Mayo'
+data_teate17['year']='2020'
+data_teate18=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2020/Tx 51 Junio 2020.xlsx",dtype={'Pedido': object})
+data_teate18['mes']='Junio'
+data_teate18['year']='2020'
+data_teate19=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2020/Tx 51 Julio 2020.xlsx",dtype={'Pedido': object})
+data_teate19['mes']='Julio'
+data_teate19['year']='2020'
+data_teate20=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/TX 51 2019-2020/2020/Tx 51 Agosto 2020.xlsx",dtype={'Pedido': object})
+data_teate20['mes']='Agosto'
+data_teate20['year']='2020'
+
+data_tenderos=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/Base de Tenderos 2020.xlsx")
+data_tenderos_2=pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/zml110 septi 30 2020.xlsx")
+
+df_categ = pd.read_excel("C:/Users/ALEXANDRA/Documents/DS4A/Project Teate/Data_repo/Categorías por material Teaté 2020.xlsx")
+
+frames = [data_teate1, data_teate2, data_teate3, data_teate4, data_teate5, data_teate6, data_teate7, data_teate8, data_teate9,
+         data_teate10, data_teate11, data_teate12, data_teate13, data_teate14, data_teate15, data_teate16, data_teate17,
+         data_teate18, data_teate19, data_teate20]
+         
+data_teate.groupby(['year', 'mes'])['Pedido'].count()
+
+data_teatecopy=data_teate[~data_teate['Pedido'].isnull()] #here i delete totals
+data_teatecopy['Población2']=data_teatecopy['Población']
+data_teatecopy.head()
+
+
+data_teatecopy['Población2'].replace('MEDELLIN', 'Medellin', inplace=True,regex=False)
+data_teatecopy['Población2'].replace('Medellín', 'Medellin',inplace=True,regex=False)
+data_teatecopy['Población2'].replace('Jamundí', 'Jamundi',inplace=True,regex=False)
+data_teatecopy['Población2'].replace('JamundÃ\xad', 'Jamundi',inplace=True,regex=False)
+data_teatecopy['Población2'].replace('Santiago de Cali', 'Cali',inplace=True,regex=False)
+data_teatecopy['Población2'].replace('Santiago de cali', 'Cali',inplace=True,regex=False)
+data_teatecopy['Población2'].replace('CALI', 'Cali', inplace=True,regex=False)
+data_teatecopy['Población2'].replace('cali', 'Cali', inplace=True,regex=False)
+data_teatecopy['Población2'].replace('YUMBO', 'Yumbo', inplace=True,regex=False)
+data_teatecopy['Población2'].replace('Itaguí', 'Itagui',inplace=True,regex=False)
+data_teatecopy['Población2'].replace('Estrella', 'La Estrella', inplace=True,regex=False)
+data_teatecopy['Población2'].replace('San Antonio De Prado', 'San Antonio de Prado', inplace=True,regex=False)
+data_teatecopy['Población2'].replace('San Antonio Prados', 'San Antonio de Prado', inplace=True,regex=False)
+
+data_ordered_poblacion=pd.DataFrame(data_teatecopy.groupby('Población2', as_index=False)['Pedido'].count())
+data_ordered_poblacion.sort_values(by=['Pedido'], ascending=False)
+
+datateatevars=data_teatecopy[['Pedido', 'Fecha Pedido', 'Tienda', 'Nombre Tienda', 'Dirección Tienda',
+'Fabricante', 'Nombre Fabricante', 'Material',
+'Nombre Material', 'Cantidad de pedido', 'Valor Unitario Pedido',
+'Mon.', 'Valor Total Pedido', 'Valor Total Ped Dcto+IVA',
+'Entrega', 'Factura', 'Fecha Factura',
+'Ctd.facturada', 'UM', 'Valor Unitario Factura',
+'Valor TotalFactura', 'ValorTot con Dscto', 'MR',
+'Denominación Motivo Rechazo', 'FechaMovil', 'HoraMovil',
+'ValorIngresoPedido',  'ValorIngresoFactur',
+'NTAT Móvil', 'Cupón Dscto', 'Valor Cupón Descuento',
+'Fecha Creación Tienda', 'Ruta',
+'Nombre Ruta', 'Comuna', 'Barrio', 'Población', 'mes', 'year',
+'Descuento Teaté', 'Valor Cupón Teaté',
+ 'Población2']]
+ 
+ 
+ datateatevars['Denominación Motivo Rechazo'].replace('No hay Stock Suficiente', 'No hay stock suficiente', inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Pédido sin Descuento', 'Pedido sin descuento',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Pédido sin descuento', 'Pedido sin descuento',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Tendero no tiene Dinero', 'Tendero no tiene dinero',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('No Hizo Pedido', 'No hizo pedido',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('No hizo pédido', 'No hizo pedido',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Pédido Duplicado', 'Pedido duplicado',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Pedido Duplicado', 'Pedido duplicado',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Pédido Incompleto', 'Pedido incompleto',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Pédido incompleto', 'Pedido incompleto',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Error de Despacho', 'Error de despacho',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Pédido Atrasado', 'Pedido atrasado',inplace=True,regex=False)
+datateatevars['Denominación Motivo Rechazo'].replace('Pedido Atrasado', 'Pedido atrasado',inplace=True,regex=False)
+
+
+datateatevars['Nombre Fabricante'].replace('KELLOGG DE COLOMBIA S.A', 'KELLOGGS DE COLOMBIA S.A', inplace=True,regex=False)
+datateatevars['Nombre Fabricante'].replace('TUCONTACTO SMS S.A.S', 'TUCONTACTO SMS S.A.S.', inplace=True,regex=False)
+datateatevars['Nombre Fabricante'].replace('MANITOBA LTDA', 'MANITOBA S.A.S', inplace=True,regex=False)
+
+
+datateatevars['Población2'].value_counts()
+
+
+datateatenodup=datateatevars.drop_duplicates(subset=None, keep='first')
+datateatenodup.shape
+
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('1', 'COMUNA01')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('2', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('3', 'COMUNA03')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('8', 'COMUNA08')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('4', 'COMUNA04')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 02', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('5', 'COMUNA05')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 05', 'COMUNA05')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('6', 'COMUNA06')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('7', 'COMUNA07')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('10', 'COMUNA10')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('12', 'COMUNA12')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('13', 'COMUNA13')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('15', 'COMUNA15')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('16', 'COMUNA16')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('17', 'COMUNA17')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('18', 'COMUNA18')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 18', 'COMUNA18')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('19', 'COMUNA19')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('21', 'COMUNA21')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('99', 'SIN_COMUNA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 09', 'COMUNA09')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 08', 'COMUNA08')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 07', 'COMUNA07')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 06', 'COMUNA06')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 03', 'COMUNA03')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 01', 'COMUNA01')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 04', 'COMUNA04')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 05', 'COMUNA05')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 07', 'COMUNA07')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 10', 'COMUNA10')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 11', 'COMUNA11')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 12', 'COMUNA12')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 13', 'COMUNA13')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 14', 'COMUNA14')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 15', 'COMUNA15')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 16', 'COMUNA16')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 17', 'COMUNA17')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 18', 'COMUNA18')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 19', 'COMUNA19')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 20', 'COMUNA20')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 21', 'COMUNA21')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 22', 'COMUNA22')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 24', 'COMUNA24')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 25', 'COMUNA25')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 26', 'COMUNA26')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 29', 'COMUNA29')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 30', 'COMUNA30')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 32', 'COMUNA32')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 35', 'COMUNA35')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 36', 'COMUNA36')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 37', 'COMUNA37')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 38', 'COMUNA38')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 39', 'COMUNA39')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 1', 'COMUNA01')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 2', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 3', 'COMUNA03')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('comuna', 'SIN_COMUNA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna', 'SIN_COMUNA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('', 'SIN_COMUNA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 1', 'COMUNA01')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 2', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 2', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 02', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 3', 'COMUNA03')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 4', 'COMUNA04')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 4', 'COMUNA04')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 5', 'COMUNA05')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 5', 'COMUNA05')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 6', 'COMUNA06')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 6', 'COMUNA06')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 7', 'COMUNA07')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 7', 'COMUNA07')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 8', 'COMUNA08')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 8', 'COMUNA08')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 9', 'COMUNA09')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 9', 'COMUNA09')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 99', 'COMUNA09')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 10', 'COMUNA10')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 11', 'COMUNA11')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 12', 'COMUNA12')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 13', 'COMUNA13')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 14', 'COMUNA14')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 15', 'COMUNA15')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 15', 'COMUNA15')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 16', 'COMUNA16')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 19', 'COMUNA19')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 19', 'COMUNA19')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 17', 'COMUNA17')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 18', 'COMUNA18')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 18', 'COMUNA18')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 20', 'COMUNA20')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 21', 'COMUNA21')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna 22', 'COMUNA22')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna Caldas', 'COMUNA_CALDAS')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('LA ESTRELLA', 'COMUNA_ESTRELLA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna la Estrella', 'COMUNA_ESTRELLA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna Sabaneta', 'COMUNA_SABANETA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('SAN ANTONIO DE PRADO', 'COMUNA_SADP')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA JAMUNDÃ', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA JAMUNDI', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA JAMUNDÍ', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna Jamundi', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna Jamundí', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna JamundÃ­', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA ITAGUI', 'COMUNA_ITAGUI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('ARANJUEZ', 'COMUNA_ARANJUEZ')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('VILLAGORGONA', 'COMUNA_VILLAGORGONA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('CASTILLA', 'COMUNA_CASTILLA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 2', 'COMUNA02')
+
+
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA  2 ', 'COMUNA02', regex=True)
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace(' COMUNA 2 ', 'COMUNA02', regex=True)
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 2  ', 'COMUNA02', regex=True)
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('Comuna La Estrella', 'COMUNA_ESTRELLA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA2   ', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('  COMUNA 2', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA  18', 'COMUNA18')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('POBLADO LA ARBOLEDA', 'COMUNA_POBLA')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA JAMUNDI', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace(' COMUNA JAMUNDI', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA JAMUNDI ', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA JAMUNDI  ', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('  COMUNA JAMUNDI', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA JAMUNDI  ', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace(' COMUNA JAMUNDI ', 'COMUNA_JAMUNDI', regex=True)
+datateatenodup['Comuna']=datateatenodup['Comuna'].str.strip()
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace(' ', '')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA  JAMUNDI', 'COMUNA_JAMUNDI')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 41', 'COMUNA41')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA  2', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('COMUNA 2.', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('   COMUNA 2', 'COMUNA02')
+datateatenodup['Comuna']=datateatenodup['Comuna'].replace('POBLADO CAMPESTRE', 'COMUNA_POBCAM')
+pd.set_option('display.max_rows', None)
+pd.DataFrame(datateatenodup['Comuna'].value_counts())
+
+
+data_tenderos_def=data_tenderos_2[['Interl.comercial','Zona Comercial', 'Zona de ventas', 'Fecha de Activación', 'FUlt Pedido', 'Estado del Partner', 'Días']]
+
+datateatenodup['Población2'].isna().sum()
+
+data_tenderos_def.rename(columns={'Interl.comercial':'Tienda','Zona Comercial':'Zona Comercial Maestra', 'Fecha de Activación':'Fecha de Activación Maestra'}, inplace=True)
+
+merged1= datateatenodup.merge(data_tenderos_def, how='left',on='Tienda')
+merged1.head()
+
+cali=merged1[merged1['Población2']=='Cali']
+
+merged1['Zona de ventas'].isnull().sum()
+merged4=merged1.copy()
+
+merged4['Pob_small']=merged4['Población2']
+
+merged4['Población def']=merged4['Población2'].replace('MEDELLIN', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('MEDELLÍN', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('SANTIAGO DE CALI', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('Yumbo', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('YUMBO', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('Candelaria', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('CANDELARIA', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('Palmira', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('CALI', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('PALMIRA', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('Jamundi', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('JAMUNDI', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('JAMUNDÍ', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('Villa Gorgona', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('La Pradera', 'Cali')
+merged4['Población def']=merged4['Población2'].replace('Itagui', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('ITAGUI', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('ITAGUÍ', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('Caldas', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('CALDAS', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('SAN ANTONIO DE PRADO', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('San Antonio de Prado', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('Sabaneta', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('ESTRELLA', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('ENVIGADO', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('Envigado', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('La Estrella', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('LA ESTRELLA', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('SABANETA', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('Bello', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('Portal de los almendros', 'Medellin')
+merged4['Población def']=merged4['Población2'].replace('SAN ANTONIO PRADOS', 'Medellin')
+
+merged4['Población def']=merged4['Población def'].replace('Yumbo', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('YUMBO', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('Candelaria', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('CANDELARIA', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('Palmira', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('CALI', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('PALMIRA', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('Jamundi', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('JAMUNDI', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('JAMUNDÍ', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('Villa Gorgona', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('La Pradera', 'Cali')
+merged4['Población def']=merged4['Población def'].replace('Itagui', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('ITAGUI', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('Itagüí', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('Caldas', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('CALDAS', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('SAN ANTONIO DE PRADO', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('San Antonio de Prado', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('Sabaneta', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('ESTRELLA', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('ENVIGADO', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('Envigado', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('La Estrella', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('LA ESTRELLA', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('SABANETA', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('Bello', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('Portal de los almendros', 'Medellin')
+merged4['Población def']=merged4['Población def'].replace('SAN ANTONIO PRADOS', 'Medellin')
+
+merged4['Pob_small']=merged4['Pob_small'].replace('MEDELLIN', 'Medellin')
+merged4['Pob_small']=merged4['Pob_small'].replace('MEDELLÍN', 'Medellin')
+merged4['Pob_small']=merged4['Pob_small'].replace('SANTIAGO DE CALI', 'Cali')
+
+merged4['Pob_small']=merged4['Pob_small'].replace('YUMBO', 'Yumbo')
+
+merged4['Pob_small']=merged4['Pob_small'].replace('CANDELARIA', 'Candelaria')
+
+merged4['Pob_small']=merged4['Pob_small'].replace('CALI', 'Cali')
+merged4['Pob_small']=merged4['Pob_small'].replace('PALMIRA', 'Palmira')
+
+merged4['Pob_small']=merged4['Pob_small'].replace('JAMUNDI', 'Jamundi')
+merged4['Pob_small']=merged4['Pob_small'].replace('JAMUNDÍ', 'Jamundi')
+
+merged4['Pob_small']=merged4['Pob_small'].replace('La Pradera', 'Pradera')
+
+merged4['Pob_small']=merged4['Pob_small'].replace('ITAGUI', 'Itagui')
+merged4['Pob_small']=merged4['Pob_small'].replace('ITAGUÍ', 'Itagui')
+merged4['Pob_small']=merged4['Pob_small'].replace('Itagüí', 'Itagui')
+
+merged4['Pob_small']=merged4['Pob_small'].replace('CALDAS', 'Caldas')
+merged4['Pob_small']=merged4['Pob_small'].replace('SAN ANTONIO DE PRADO', 'San Antonio de Prado')
+
+
+merged4['Pob_small']=merged4['Pob_small'].replace('ESTRELLA', 'La Estrella')
+merged4['Pob_small']=merged4['Pob_small'].replace('ENVIGADO', 'Envigado')
+
+
+merged4['Pob_small']=merged4['Pob_small'].replace('LA ESTRELLA', 'La Estrella')
+merged4['Pob_small']=merged4['Pob_small'].replace('SABANETA', 'Sabaneta')
+
+
+merged4['Pob_small']=merged4['Pob_small'].replace('SAN ANTONIO PRADOS', 'San Antonio de Prado')
+
+merged4['Pob_small'].unique()
+
+result2 = merged4.merge(df_categ, how='left', on='Material')
+
+result2.to_csv('clean_teate_05nov.csv', index=False)
+
+result2.isnull().mean().sort_values(ascending=False)
+
+fig = px.pie(result2, values='Pedido', names='NOMBRE CAT', title='Category Frequency')
+fig.show()
