@@ -1,0 +1,403 @@
+import math
+import matplotlib.pyplot as plt
+import keras
+import pandas as pd
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+from keras.layers import Dropout
+from keras.layers import *
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
+import numpy as np
+import os
+from fbprophet import Prophet
+prueba=pd.read_csv('C:/Users/ALEXANDRA/Documents/DS4A/case_1.4_final/clean_teate_05nov.csv')
+import datetime as dt
+prueba['NOMBRE SUB'].unique()
+prueba['month_year']=pd.to_datetime(prueba['Fecha Pedido']).dt.to_period('M')
+prueba=prueba[prueba['month_year']!='2020-09']
+prueba_cali=prueba[prueba['Población def']=='Medellin']
+
+prueba_cali.head()
+
+confidulpan=prueba_cali[prueba_cali['NOMBRE SUB'].isin([ 'DULCES', 'GOMAS', 'GALLETAS', 'PASABOCAS', 'POSTRES LISTOS', 'PAN EMPACADO',
+'MERMELADAS', 'CHOCOLATINAS', 'GOMAS DE MASCAR', 'OTROS CONFITERIA','GELATINAS Y POSTRES EN POLVO','PONQUE'])]
+
+
+aseoperso=prueba_cali[prueba_cali['NOMBRE SUB'].isin([ 'CREMA DENTAL','PAPEL HIGIENICO', 'PROTECCION SANITARIA','ENJUAGUES BUCALES','JABON DE TOCADOR','BETUNES','OTROS ASEO PERSONAL','DESODORANTES', 'CREMAS CORPORALES',
+ 'CEPILLOS DENTALES','ANTIGRIPALES', 'CONDONES', 'CURAS', 'SHAMPOO', 'CUCHILLAS DE AFEITAR','BRONCEADORES Y PROTECTORES SOLARES','ANALGESICOS','PAÑALES DESECHABLES PARA BEBE', 'ANTIACIDOS'])]
+
+arroz=prueba_cali[prueba_cali['NOMBRE SUB'].isin(['ARROZ'])]
+
+aseohogar=prueba_cali[prueba_cali['NOMBRE SUB'].isin(['DETERGENTE PARA ROPA','DETERGENTE PARA LOZA','LIMPIADORES EN POLVO', 'BLANQUEADORES', 'JABON EN BARRA',
+       'FIBRAS Y PAÑOS', 'FRAGANCIAS AMBIENTALES', 'SUAVIZANTES PARA ROPA','CERA PARA PISOS', 'LIMPIADORES PARA BAÑO',
+ 'OTROS ASEO HOGAR','BOMBILLOS', 'LIMPIADORES LIQUIDOS', 'ESPONJILLAS METALICAS', 'SERVILLETAS'])]
+
+despensa=prueba_cali[prueba_cali['NOMBRE SUB'].isin(['PASTAS','ATUN', 'GRANOS', 'CHOCOLATE DE MESA','AZUCAR','CEREALES PROCESADOS','HARINAS PRECOCIDAS DE MAIZ','ACEITES LIQUIDOS', 'MEZCLA PARA TORTAS'])]
+
+cafe=prueba_cali[prueba_cali['NOMBRE SUB'].isin(['CAFÉ MOLIDO','CAFÉ SOLUBLE'])]
+
+bebidas=prueba_cali[prueba_cali['NOMBRE SUB'].isin(['JUGOS Y NECTARES','CERVEZA','GASEOSAS','AGUAS','BEBIDAS ENERGIZANTES'
+,'REFRESCOS EN POLVO','REFRESCOS EN POLVO','AGUAS'])]
+
+salsas_otros=prueba_cali[prueba_cali['NOMBRE SUB'].isin(['BOLIGRAFOS DESECHABLES', 'OTROS OTRAS CATEGORIAS', 'SUPLEMENTOS VITAMINICOS',  'FORMULAS INFANTILES',
+ 'OTROS ALIMENTOS', 'SALSA DE TOMATE',  'COMPOTAS',  'MAYONESAS',  'SALSA BASE MAYONESA','OTRAS SALSAS' ])]
+
+
+confidulpan=pd.DataFrame(confidulpan.groupby('Fecha Pedido')['Pedido'].count())
+confidulpan.reset_index(inplace=True)
+
+aseoperso=pd.DataFrame(aseoperso.groupby('Fecha Pedido')['Pedido'].count())
+aseoperso.reset_index(inplace=True)
+
+arroz=pd.DataFrame(arroz.groupby('Fecha Pedido')['Pedido'].count())
+arroz.reset_index(inplace=True)
+
+aseohogar=pd.DataFrame(aseohogar.groupby('Fecha Pedido')['Pedido'].count())
+aseohogar.reset_index(inplace=True)
+
+despensa=pd.DataFrame(despensa.groupby('Fecha Pedido')['Pedido'].count())
+despensa.reset_index(inplace=True)
+
+cafe=pd.DataFrame(cafe.groupby('Fecha Pedido')['Pedido'].count())
+cafe.reset_index(inplace=True)
+
+bebidas=pd.DataFrame(bebidas.groupby('Fecha Pedido')['Pedido'].count())
+bebidas.reset_index(inplace=True)
+
+salsas_otros=pd.DataFrame(salsas_otros.groupby('Fecha Pedido')['Pedido'].count())
+salsas_otros.reset_index(inplace=True)
+
+aseoperso['Fecha Pedido']=pd.to_datetime(aseoperso['Fecha Pedido'])
+arroz['Fecha Pedido']=pd.to_datetime(arroz['Fecha Pedido'])
+confidulpan['Fecha Pedido']=pd.to_datetime(confidulpan['Fecha Pedido'])
+aseohogar['Fecha Pedido']=pd.to_datetime(aseohogar['Fecha Pedido'])
+despensa['Fecha Pedido']=pd.to_datetime(despensa['Fecha Pedido'])
+cafe['Fecha Pedido']=pd.to_datetime(cafe['Fecha Pedido'])
+bebidas['Fecha Pedido']=pd.to_datetime(bebidas['Fecha Pedido'])
+salsas_otros['Fecha Pedido']=pd.to_datetime(salsas_otros['Fecha Pedido'])
+
+jh_aseoperso =aseoperso.rename(columns={'Fecha Pedido': 'ds', 'Pedido': 'y'})
+jh_model_aseoperso = Prophet(interval_width=0.95)
+jh_model_aseoperso.fit(jh_aseoperso)
+
+jh_arroz =arroz.rename(columns={'Fecha Pedido': 'ds', 'Pedido': 'y'})
+jh_model_arroz = Prophet(interval_width=0.95)
+jh_model_arroz.fit(jh_arroz)
+
+jh_confidulpan = confidulpan.rename(columns={'Fecha Pedido': 'ds', 'Pedido': 'y'})
+jh_model_confidulpan = Prophet(interval_width=0.95)
+jh_model_confidulpan.fit(jh_confidulpan)
+
+jh_aseohogar = aseohogar.rename(columns={'Fecha Pedido': 'ds', 'Pedido': 'y'})
+jh_model_aseohogar = Prophet(interval_width=0.95)
+jh_model_aseohogar.fit(jh_aseohogar)
+
+jh_despensa = despensa.rename(columns={'Fecha Pedido': 'ds', 'Pedido': 'y'})
+jh_model_despensa = Prophet(interval_width=0.95)
+jh_model_despensa.fit(jh_despensa)
+
+jh_cafe = cafe.rename(columns={'Fecha Pedido': 'ds', 'Pedido': 'y'})
+jh_model_cafe = Prophet(interval_width=0.95)
+jh_model_cafe.fit(jh_cafe)
+
+jh_bebidas = bebidas.rename(columns={'Fecha Pedido': 'ds', 'Pedido': 'y'})
+jh_model_bebidas = Prophet(interval_width=0.95)
+jh_model_bebidas.fit(jh_bebidas)
+
+jh_salsas_otros = salsas_otros.rename(columns={'Fecha Pedido': 'ds', 'Pedido': 'y'})
+jh_model_salsas_otros = Prophet(interval_width=0.95)
+jh_model_salsas_otros.fit(jh_salsas_otros)
+
+jh_forecast_aseoperso = jh_model_aseoperso.make_future_dataframe(periods=180, freq='d')
+jh_forecast_aseoperso = jh_model_aseoperso.predict(jh_forecast_aseoperso)
+plt.figure(figsize=(18, 6))
+jh_model_aseoperso.plot(jh_forecast_aseoperso, xlabel = 'Date', ylabel = 'PTS')
+plt.title('Ordenes Aseo Personal')
+
+jh_forecast_arroz = jh_model_arroz.make_future_dataframe(periods=180, freq='d')
+jh_forecast_arroz = jh_model_arroz.predict(jh_forecast_arroz)
+plt.figure(figsize=(18, 6))
+jh_model_arroz.plot(jh_forecast_arroz, xlabel = 'Date', ylabel = 'PTS')
+plt.title('Ordenes arroz')
+
+
+jh_forecast_despensa = jh_model_despensa.make_future_dataframe(periods=180, freq='d')
+jh_forecast_despensa = jh_model_despensa.predict(jh_forecast_despensa)
+plt.figure(figsize=(18, 6))
+jh_model_despensa.plot(jh_forecast_despensa, xlabel = 'Date', ylabel = 'PTS')
+plt.title('Ordenes despensa')
+
+jh_forecast_aseohogar = jh_model_aseohogar.make_future_dataframe(periods=180, freq='d')
+jh_forecast_aseohogar = jh_model_aseohogar.predict(jh_forecast_aseohogar)
+plt.figure(figsize=(18, 6))
+jh_model_aseohogar.plot(jh_forecast_aseohogar, xlabel = 'Date', ylabel = 'PTS')
+plt.title('Ordenes asehogar')
+
+jh_forecast_bebidas = jh_model_bebidas.make_future_dataframe(periods=180, freq='d')
+jh_forecast_bebidas = jh_model_bebidas.predict(jh_forecast_bebidas)
+plt.figure(figsize=(18, 6))
+jh_model_bebidas.plot(jh_forecast_bebidas, xlabel = 'Date', ylabel = 'PTS')
+plt.title('Ordenes bebidas')
+
+jh_forecast_cafe = jh_model_cafe.make_future_dataframe(periods=180, freq='d')
+jh_forecast_cafe = jh_model_cafe.predict(jh_forecast_cafe)
+plt.figure(figsize=(18, 6))
+jh_model_cafe.plot(jh_forecast_cafe, xlabel = 'Date', ylabel = 'PTS')
+plt.title('Ordenes cafe')
+
+jh_forecast_confidulpan = jh_model_confidulpan.make_future_dataframe(periods=180, freq='d')
+jh_forecast_confidulpan = jh_model_confidulpan.predict(jh_forecast_confidulpan)
+plt.figure(figsize=(18, 6))
+jh_model_confidulpan.plot(jh_forecast_confidulpan, xlabel = 'Date', ylabel = 'PTS')
+plt.title('Ordenes confidulpan')
+
+jh_forecast_salsas_otros = jh_model_salsas_otros.make_future_dataframe(periods=180, freq='d')
+jh_forecast_salsas_otros = jh_model_salsas_otros.predict(jh_forecast_salsas_otros)
+plt.figure(figsize=(18, 6))
+jh_model_salsas_otros.plot(jh_forecast_salsas_otros, xlabel = 'Date', ylabel = 'PTS')
+plt.title('Ordenes salsas_otros')
+
+
+jh_forecast_arroz['month_year']=pd.to_datetime(jh_forecast_arroz['ds']).dt.to_period('M')
+jh_forecast_cafe['month_year']=pd.to_datetime(jh_forecast_cafe['ds']).dt.to_period('M')
+jh_forecast_bebidas['month_year']=pd.to_datetime(jh_forecast_bebidas['ds']).dt.to_period('M')
+jh_forecast_salsas_otros['month_year']=pd.to_datetime(jh_forecast_salsas_otros['ds']).dt.to_period('M')
+jh_forecast_despensa['month_year']=pd.to_datetime(jh_forecast_despensa['ds']).dt.to_period('M')
+jh_forecast_aseoperso['month_year']=pd.to_datetime(jh_forecast_aseoperso['ds']).dt.to_period('M')
+jh_forecast_aseohogar['month_year']=pd.to_datetime(jh_forecast_aseohogar['ds']).dt.to_period('M')
+jh_forecast_confidulpan['month_year']=pd.to_datetime(jh_forecast_confidulpan['ds']).dt.to_period('M')
+
+meanmonth_arroz=pd.DataFrame(jh_forecast_arroz.groupby('month_year')[['yhat', 'yhat_lower', 'yhat_upper']].mean())
+meanmonth_arroz.reset_index(inplace=True)
+meanmonth_arroz.tail()
+meanmonth_arroz['month_year']=meanmonth_arroz['month_year'].astype(str)
+
+meanmonth_cafe=pd.DataFrame(jh_forecast_cafe.groupby('month_year')[['yhat', 'yhat_lower', 'yhat_upper']].mean())
+meanmonth_cafe.reset_index(inplace=True)
+meanmonth_cafe.tail()
+meanmonth_cafe['month_year']=meanmonth_cafe['month_year'].astype(str)
+
+meanmonth_bebidas=pd.DataFrame(jh_forecast_bebidas.groupby('month_year')[['yhat', 'yhat_lower', 'yhat_upper']].mean())
+meanmonth_bebidas.reset_index(inplace=True)
+meanmonth_bebidas.tail()
+meanmonth_bebidas['month_year']=meanmonth_bebidas['month_year'].astype(str)
+
+meanmonth_salsas_otros=pd.DataFrame(jh_forecast_salsas_otros.groupby('month_year')[['yhat', 'yhat_lower', 'yhat_upper']].mean())
+meanmonth_salsas_otros.reset_index(inplace=True)
+meanmonth_salsas_otros.tail()
+meanmonth_salsas_otros['month_year']=meanmonth_salsas_otros['month_year'].astype(str)
+
+meanmonth_despensa=pd.DataFrame(jh_forecast_despensa.groupby('month_year')[['yhat', 'yhat_lower', 'yhat_upper']].mean())
+meanmonth_despensa.reset_index(inplace=True)
+meanmonth_despensa.tail()
+meanmonth_despensa['month_year']=meanmonth_despensa['month_year'].astype(str)
+
+meanmonth_confidulpan=pd.DataFrame(jh_forecast_confidulpan.groupby('month_year')[['yhat', 'yhat_lower', 'yhat_upper']].mean())
+meanmonth_confidulpan.reset_index(inplace=True)
+meanmonth_confidulpan.tail()
+meanmonth_confidulpan['month_year']=meanmonth_confidulpan['month_year'].astype(str)
+
+meanmonth_aseohogar=pd.DataFrame(jh_forecast_aseohogar.groupby('month_year')[['yhat', 'yhat_lower', 'yhat_upper']].mean())
+meanmonth_aseohogar.reset_index(inplace=True)
+meanmonth_aseohogar.tail()
+meanmonth_aseohogar['month_year']=meanmonth_aseohogar['month_year'].astype(str)
+
+meanmonth_aseoperso=pd.DataFrame(jh_forecast_aseoperso.groupby('month_year')[['yhat', 'yhat_lower', 'yhat_upper']].mean())
+meanmonth_aseoperso.reset_index(inplace=True)
+meanmonth_aseoperso.tail()
+meanmonth_aseoperso['month_year']=meanmonth_aseoperso['month_year'].astype(str)
+
+##rice plot
+
+import plotly.graph_objs as go
+# Create and style traces
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=jh_forecast_arroz['ds'], y=jh_forecast_arroz['yhat'], name='yhat',
+                         line=dict(color='mediumblue', width=2)))
+
+fig.add_trace(go.Scatter(x=arroz['Fecha Pedido'], y=arroz['Pedido'], name='yreal',
+                         line=dict(color='violet', width=2)))
+
+fig.add_trace(go.Scatter(x=meanmonth_arroz['month_year'], y=meanmonth_arroz['yhat'], name='yhat_mean',
+                         line=dict(color='yellow', width=2)))
+fig.show()
+
+jh_forecast_bebidascali=pd.read_csv('jh_forecast_bebidascali.csv')
+jh_forecast_arrozcali=pd.read_csv('jh_forecast_arrozcali.csv')
+
+
+jh_forecast_arroz['ARROZ_MEDELLIN']= jh_forecast_arroz['yhat']
+jh_forecast_arroz=jh_forecast_arroz[['ds', 'ARROZ_MEDELLIN']]
+
+jh_forecast_bebidas['BEBIDAS_MEDELLIN']= jh_forecast_bebidas['yhat']
+jh_forecast_bebidas=jh_forecast_bebidas[['ds', 'BEBIDAS_MEDELLIN']]
+
+jh_forecast_despensa['DESPENSA_MEDELLIN']= jh_forecast_despensa['yhat']
+jh_forecast_despensa=jh_forecast_despensa[['ds', 'DESPENSA_MEDELLIN']]
+
+
+jh_forecast_aseoperso['ASEOPERSO_MEDELLIN']= jh_forecast_aseoperso['yhat']
+jh_forecast_aseoperso=jh_forecast_aseoperso[['ds', 'ASEOPERSO_MEDELLIN']]
+
+jh_forecast_aseohogar['ASEOHOGAR_MEDELLIN']= jh_forecast_aseohogar['yhat']
+jh_forecast_aseohogar=jh_forecast_aseohogar[['ds', 'ASEOHOGAR_MEDELLIN']]
+
+jh_forecast_confidulpan['CONFITERIA_MEDELLIN']= jh_forecast_confidulpan['yhat']
+jh_forecast_confidulpan=jh_forecast_confidulpan[['ds', 'CONFITERIA_MEDELLIN']]
+
+jh_forecast_salsas_otros['OTROS MEDELLIN']= jh_forecast_salsas_otros['yhat']
+jh_forecast_salsas_otros=jh_forecast_salsas_otros[['ds', 'OTROS MEDELLIN']]
+
+jh_forecast1=jh_forecast_arroz.merge(jh_forecast_despensa, on='ds', how='left')
+jh_forecast2=jh_forecast1.merge(jh_forecast_aseoperso, on='ds', how='left')
+jh_forecast3=jh_forecast2.merge(jh_forecast_aseohogar, on='ds', how='left')
+jh_forecast4=jh_forecast3.merge(jh_forecast_confidulpan, on='ds', how='left')
+jh_forecast5=jh_forecast4.merge(jh_forecast_bebidas, on='ds', how='left')
+jh_forecast6=jh_forecast5.merge(jh_forecast_salsas_otros, on='ds', how='left')
+
+
+
+meanmonth_aseoperso['ASEOPERSO_MEDELLIN']= meanmonth_aseoperso['yhat']
+meanmonth_aseoperso=meanmonth_aseoperso[['month_year', 'ASEOPERSO_MEDELLIN']]
+
+meanmonth_aseohogar['ASEOHOGAR_MEDELLIN']= meanmonth_aseohogar['yhat']
+meanmonth_aseohogar=meanmonth_aseohogar[['month_year', 'ASEOHOGAR_MEDELLIN']]
+
+meanmonth_arroz['ARROZ_MEDELLIN']= meanmonth_arroz['yhat']
+meanmonth_arroz=meanmonth_arroz[['month_year', 'ARROZ_MEDELLIN']]
+
+meanmonth_despensa['DESPENSA_MEDELLIN']= meanmonth_despensa['yhat']
+meanmonth_despensa=meanmonth_despensa[['month_year', 'DESPENSA_MEDELLIN']]
+
+meanmonth_bebidas['BEBIDAS_MEDELLIN']= meanmonth_bebidas['yhat']
+meanmonth_bebidas=meanmonth_bebidas[['month_year', 'BEBIDAS_MEDELLIN']]
+
+meanmonth_confidulpan['CONFITERIA_MEDELLIN']= meanmonth_confidulpan['yhat']
+meanmonth_confidulpan=meanmonth_confidulpan[['month_year', 'CONFITERIA_MEDELLIN']]
+
+meanmonth_salsa_otros['OTROS_MEDELLIN']= meanmonth_salsa_otros['yhat']
+meanmonth_salsa_otros=meanmonth_salsa_otros[['month_year', 'OTROS_MEDELLIN']]
+
+meanmonth_salsas_otros['OTROS_MEDELLIN']= meanmonth_salsas_otros['yhat']
+meanmonth_salsas_otros=meanmonth_salsas_otros[['month_year', 'OTROS_MEDELLIN']]
+
+meanmonth1=meanmonth_arroz.merge(meanmonth_despensa, on='month_year', how='left')
+meanmonth2=meanmonth1.merge(meanmonth_aseoperso, on='month_year', how='left')
+meanmonth3=meanmonth2.merge(meanmonth_aseohogar, on='month_year', how='left')
+meanmonth4=meanmonth3.merge(meanmonth_confidulpan, on='month_year', how='left')
+meanmonth5=meanmonth4.merge(meanmonth_bebidas, on='month_year', how='left')
+meanmonth6=meanmonth5.merge(meanmonth_salsas_otros, on='month_year', how='left')
+
+##Real
+
+aseoperso['ASEOPERSO_MEDELLIN']=aseoperso['Pedido']
+aseohogar['ASEOHOGAR_MEDELLIN']=aseohogar['Pedido']
+arroz['ARROZ_MEDELLIN']=arroz['Pedido']
+despensa['DESPENSA_MEDELLIN']=despensa['Pedido']
+confidulpan['CONFITERIA_MEDELLIN']=confidulpan['Pedido']
+bebidas['BEBIDAS_MEDELLIN']=bebidas['Pedido']
+salsas_otros['OTROS_MEDELLIN']=salsas_otros['Pedido']
+
+real1=arroz.merge(despensa, on='Fecha Pedido', how='left')
+real2=real1.merge(aseoperso, on='Fecha Pedido', how='left')
+real3=real2.merge(aseohogar, on='Fecha Pedido', how='left')
+real4=real3.merge(confidulpan, on='Fecha Pedido', how='left')
+real5=real4.merge(bebidas, on='Fecha Pedido', how='left')
+real6=real5.merge(salsas_otros, on='Fecha Pedido', how='left')
+
+del real6['Pedido_x']
+del real6['Pedido_y']
+del real6['Pedido']
+
+jh_forecast6.to_csv('forecastmedellin.csv')
+meanmonth6.to_csv('meanymedellin.csv')
+real6.to_csv('realymedellin.csv')
+
+
+##plot with filters
+
+
+fig = go.Figure()
+
+for column in jh_forecast6.columns.to_list():
+    fig.add_trace(
+        go.Scatter(
+            x = jh_forecast6.index,
+            y = jh_forecast6[column],
+            name = 'yhat'
+        )
+    )
+    
+for column in meanmonth6.columns.to_list():
+    fig.add_trace(
+        go.Scatter(
+            x = meanmonth6.index,
+            y = meanmonth6[column],
+            name = 'y_mean'
+        )
+    )
+    
+for column in real6.columns.to_list():
+    fig.add_trace(
+        go.Scatter(
+            x = real6.index,
+            y = real6[column],
+            name = 'y_real'
+        )
+    )
+    
+fig.update_layout(
+    updatemenus=[go.layout.Updatemenu(
+        active=0,
+        buttons=list(
+            [dict(label = 'ALL',
+                  
+             method = 'update',
+             args = [{'visible': [True, True, True, True, True, True, False]}, # the index of True aligns with the indices of plot traces
+                          {'title': 'ALL',
+                           'showlegend':True}]),
+             
+             dict(label = 'ARROZ_MEDELLIN',
+                  
+             method = 'update',
+             args = [{'visible': [True, False, False, False, False, False, False]}, # the index of True aligns with the indices of plot traces
+                          {'title': 'ARROZ_MEDELLIN',
+                           'showlegend':True}]),
+             dict(label = 'DESPENSA_MEDELLIN',
+                  method = 'update',
+                  args = [{'visible': [False, True, False, False, False, False, False]},
+                          {'title': 'DESPENSA_MEDELLIN',
+                           'showlegend':True}]),
+             dict(label = 'ASEOPERSO_MEDELLIN',
+                  method = 'update',
+                  args = [{'visible': [False, False, True, False, False, False, False]},
+                          {'title': 'ASEOPERSO_MEDELLIN',
+                           'showlegend':True}]),
+             dict(label = 'ASEOHOGAR_MEDELLIN',
+                  method = 'update',
+                  args = [{'visible': [False, False, False, True, False, False, False]},
+                          {'title': 'ASEOHOGAR_MEDELLIN',
+                           'showlegend':True}]),
+             dict(label = 'CONFITERIA_MEDELLIN',
+                  method = 'update',
+                  args = [{'visible': [False, False, False, False, True, False, False]},
+                          {'title': 'CONFITERIA_MEDELLIN',
+                           'showlegend':True}]),
+             dict(label = 'BEBIDAS_MEDELLIN',
+                  method = 'update',
+                  args = [{'visible': [False, False, False, False, False, True, False]},
+                          {'title': 'BEBIDAS_MEDELLIN',
+                           'showlegend':True}]),
+             dict(label = 'OTROS_MEDELLIN',
+                  method = 'update',
+                  args = [{'visible': [False, False, False, False, False, False, True]},
+                          {'title': 'OTROS_MEDELLIN',
+                           'showlegend':True}]),
+             ])
+        )
+    ])
+
+fig.show()
